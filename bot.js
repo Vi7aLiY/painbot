@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
-var prefix = '#'
+const config = require('./config.json');
 
 client.on('ready', () => {
   console.log('Бот загружен!');
@@ -16,7 +16,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if(message.author === client.user) return;
-    if(message.content.startsWith(prefix + 'site')) {
+    if(message.content.startsWith(config.prefix + 'site')) {
         message.channel.send({embed: {
         color: 3447003,
         description: 'Адрес нашего сайта http://bf4-pain.ru'
@@ -26,7 +26,7 @@ client.on('message', message => {
 
 client.on('message', message => {
     if(message.author === client.user) return;
-    if(message.content.startsWith(prefix + 'help')) {
+    if(message.content.startsWith(config.prefix + 'help')) {
         message.channel.send({embed: {
         color: 3447003,
         description: 'Список команд:\n #site - отобразить адрес нашего сайта,\n #admins - администраторы сервера,\n #ping - узнать свой ping, \n #info - полезные ссылки'
@@ -37,7 +37,7 @@ client.on('message', message => {
 
 client.on('message', message => {
     if(message.author === client.user) return;
-    if(message.content.startsWith(prefix + 'info')) {
+    if(message.content.startsWith(config.prefix + 'info')) {
         message.channel.send({embed: {
 		color: 3447003,
 		author: {
@@ -73,7 +73,7 @@ client.on('message', message => {
 
 client.on('message', message => {
     if(message.author === client.user) return;
-	if(message.content.startsWith(prefix + 'admins')) {
+	if(message.content.startsWith(config.prefix + 'admins')) {
         message.channel.send({embed: {
         color: 3447003,
         description: 'Администраторы нашего сервера: @Vi7aLiY, @Meteor480, @Wiking, @SAV, @Mico '
@@ -83,8 +83,8 @@ client.on('message', message => {
 
 client.on('message', message => {
     if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
-    if (message.content.startsWith(prefix + 'ping')) {
+    if (!message.content.startsWith(config.prefix)) return;
+    if (message.content.startsWith(config.prefix + 'ping')) {
         message.channel.send({embed: {
         color: 3447003,
         description: 'Твой пинг: ' + client.ping.toFixed() + ' мс.'
@@ -102,13 +102,10 @@ client.on('message', message => {
 });
 
 
-// Create an event listener for new guild members
+// Приветствуем в чате нового пользователя
 client.on('guildMemberAdd', member => {
-  // Send the message to a designated channel on a server:
   const channel = member.guild.channels.find('name', 'member-log');
-  // Do nothing if the channel wasn't found on this server
   if (!channel) return;
-  // Send the message, mentioning the member
   channel.send(`Добро пожаловать на наш сервер, ${member}`);
 });
 
