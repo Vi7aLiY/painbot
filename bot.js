@@ -12,7 +12,7 @@ client.on('ready', () => {
   member.user.send("message");
 });
 
-
+  
 
 client.on('message', message => {
     if(message.author === client.user) return;
@@ -87,7 +87,7 @@ client.on('message', message => {
     if (message.content.startsWith(config.prefix + 'ping')) {
         message.channel.send({embed: {
         color: 3447003,
-        description: 'Твой пинг: ' + client.ping.toFixed() + ' мс.'
+        description: 'Твой пинг: ' + client.ping + ' мс.'
 		}});
     }
 });
